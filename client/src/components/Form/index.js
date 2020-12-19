@@ -48,7 +48,11 @@ export default function Form({ currentId, setCurrentId }) {
 
   const setData = (e) => {
     const key = e.target.attributes.name.value;
-    const { value } = e.target;
+    let { value } = e.target;
+    if (key === "tags") {
+      value = value.split(",");
+      console.log(value);
+    }
     setPostData({ ...postData, [key]: value });
   };
 
