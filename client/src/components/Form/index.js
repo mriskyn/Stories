@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import FileBase from "react-file-base64";
+import { useDispatch } from "react-redux";
 
 import useStyles from "./styles";
+import { createPost } from "../../actions/posts";
 
 export default function Form() {
   const [postData, setPostData] = useState({
@@ -12,10 +14,13 @@ export default function Form() {
     tags: "",
     selectedFile: "",
   });
+  const dispatch = useDispatch();
   const classes = useStyles();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    dispatch(createPost(postData));
   };
 
   const clear = () => {};
@@ -79,7 +84,7 @@ export default function Form() {
         <Button
           className={classes.buttonSubmit}
           color="primary"
-          variant="container"
+          variant="contained"
           size="large"
           type="submit"
           fullWidth
