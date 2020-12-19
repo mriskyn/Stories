@@ -17,7 +17,7 @@ import moment from "moment";
 
 import useStyles from "./styles";
 
-import { deletePost } from "../../../actions/posts";
+import { deletePost, likePost } from "../../../actions/posts";
 
 export default function Post({ post, setCurrentId }) {
   const classes = useStyles();
@@ -60,7 +60,11 @@ export default function Post({ post, setCurrentId }) {
       </CardContent>
 
       <CardActions className={classes.cardActions}>
-        <Button size="small" color="primary" onClick={() => {}}>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => dispatch(likePost(post._id))}
+        >
           <ThumbUpAltIcon fontSize="small" />
           Like
           {post.likeCount}
