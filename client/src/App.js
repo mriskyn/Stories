@@ -7,6 +7,8 @@ import Posts from "./components/Posts";
 import Form from "./components/Form";
 import useStyles from "./styles";
 
+import logo from "./images/logo.png";
+
 function App() {
   const [currentId, setCurrentId] = useState(null);
   const classes = useStyles();
@@ -22,7 +24,7 @@ function App() {
         <Typography className={classes.heading} variant="h2" align="center">
           Stories
         </Typography>
-        <img className={classes.image} alt="stories" height="60" />
+        <img className={classes.image} src={logo} alt="stories" height="60" />
       </AppBar>
       <Grow in>
         <Container>
