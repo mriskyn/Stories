@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 
 class PostsController {
   static async getPosts(req, res) {
+    console.log("Get Data");
     try {
       const postMessages = await PostMessage.find();
       res.status(200).json(postMessages);
@@ -12,6 +13,7 @@ class PostsController {
   }
 
   static async createPost(req, res) {
+    console.log("Create Data");
     const post = req.body;
 
     const newPost = new PostMessage(post);
@@ -24,15 +26,23 @@ class PostsController {
   }
 
   static async updatePost(req, res) {
-    const { id: _id } = req.params;
-    const post = req.body;
+    console.log("Update Data");
+    const { id } = req.params;
+    const { title, message, creator, selectedFile, tags } = req.body;
 
-    if (mongoose.Types.ObjectId.isValid(_id))
-      return res.status(404).send("No Post with that id");
+    if (!mongoose.Types.ObjectId.isValid(id))
+      return res.status(404).send(`No post with id: ${id}`);
 
-    const updatedPost = await PostMessage.findByIdAndUpdate(_id, post, {
-      new: true,
-    });
+    const updatedPost = {
+      creator,
+      title,
+      message,
+      tags,
+      selectedFile,
+      _id: id,
+    };
+
+    await PostMessage.findByIdAndUpdate(id, updatedPost, { new: true });
 
     res.json(updatedPost);
   }
