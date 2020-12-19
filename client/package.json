@@ -20,7 +20,8 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "eslint:disable": "REACT_APP_DEV_DISABLE_ESLINT=true",
+    "start": "yarn run eslint:disable  react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

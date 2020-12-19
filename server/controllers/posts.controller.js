@@ -1,4 +1,5 @@
 const { PostMessage } = require("../models");
+const mongoose = require("mongoose");
 
 class PostsController {
   static async getPosts(req, res) {
@@ -20,6 +21,20 @@ class PostsController {
     } catch (err) {
       res.status(409).json({ message: err.message });
     }
+  }
+
+  static async updatePost(req, res) {
+    const { id: _id } = req.params;
+    const post = req.body;
+
+    if (mongoose.Types.ObjectId.isValid(_id))
+      return res.status(404).send("No Post with that id");
+
+    const updatedPost = await PostMessage.findByIdAndUpdate(_id, post, {
+      new: true,
+    });
+
+    res.json(updatedPost);
   }
 }
 
